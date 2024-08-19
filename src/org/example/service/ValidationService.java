@@ -4,7 +4,7 @@ import exception.WrongLoginException;
 import exception.exception.WrongPasswordException;
 
 public class ValidationService {
-    public static final String VALIDATE_SYMBOLS = "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-QWERTYUIOPASDFGHJKLZXCVBNM";
+    public static final String VALIDATE_SYMBOLS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_0123456789";
 
     public static void validate(String login, String password, String confirmPassword) {
         validateLogin(login);
@@ -13,7 +13,7 @@ public class ValidationService {
 
     private static void validateLogin(String login) {
 
-        if (login.length() > 20) {
+        if (login.length() >= 20) {
             throw new WrongLoginException("Логин содержит больше 20 символов", login);
         }
         for (int i = 0; i < login.length(); i++) {
@@ -25,7 +25,7 @@ public class ValidationService {
     }
 
     private static void validatePassword(String password, String confirmPassword) {
-        if (password.equals(confirmPassword)) {
+        if (!password.equals(confirmPassword)) {
             throw new WrongPasswordException(password);
         }
         if (password.length() > 20) {
